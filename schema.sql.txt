@@ -1,0 +1,31 @@
+create database moviedb;
+use moviedb;
+
+-- Movies Table: stores core movie and enriched OMDb data
+CREATE TABLE IF NOT EXISTS Movies (
+    movieId INTEGER PRIMARY KEY,
+    title TEXT NOT NULL,
+    release_year INTEGER,
+    imdbId TEXT,
+    director TEXT,
+    plot TEXT,
+    box_office TEXT
+);
+
+-- Ratings Table: stores user ratings
+CREATE TABLE IF NOT EXISTS Ratings (
+    userId INTEGER NOT NULL,
+    movieId INTEGER NOT NULL,
+    rating REAL NOT NULL,
+    timestamp INTEGER NOT NULL,
+    PRIMARY KEY (userId, movieId), -- Composite Key
+    FOREIGN KEY (movieId) REFERENCES Movies(movieId)
+);
+
+-- Genres Table: stores the many-to-many relationship between movies and genres
+CREATE TABLE IF NOT EXISTS Genres (
+    movieId INTEGER NOT NULL,
+    genre varchar(100) NOT NULL,
+    PRIMARY KEY (movieId, genre),
+    FOREIGN KEY (movieId) REFERENCES Movies(movieId)
+);

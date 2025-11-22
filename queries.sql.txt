@@ -1,0 +1,30 @@
+-- 1. Movie with highest average rating
+SELECT m.title, AVG(r.rating) AS avg_rating
+FROM movies m
+JOIN ratings r ON m.movieid = r.movieid
+GROUP BY m.movieid
+ORDER BY avg_rating DESC
+LIMIT 1;
+
+-- 2. Top 5 genres with highest average rating
+SELECT g.genre, ROUND(AVG(r.rating), 2) AS avg_rating
+FROM Genres g
+JOIN Ratings r ON g.movieId = r.movieId
+GROUP BY g.genre
+ORDER BY avg_rating DESC
+LIMIT 5;
+
+
+-- 3. Director with most movies
+SELECT director, COUNT(*) AS movie_count
+FROM movies
+GROUP BY director
+ORDER BY movie_count DESC
+LIMIT 1;
+
+-- 4. Average rating per release year
+SELECT release_year, AVG(r.rating) AS avg_rating
+FROM movies m
+JOIN ratings r ON m.movieid = r.movieid
+GROUP BY release_year
+ORDER BY release_year;
